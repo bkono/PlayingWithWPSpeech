@@ -95,6 +95,7 @@
     </Compile>
     <Compile Include="AppBootstrapper.cs" />
     <Compile Include="LocalizedStrings.cs" />
+    <Compile Include="ViewModels\MainPageModelStorage.cs" />
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>

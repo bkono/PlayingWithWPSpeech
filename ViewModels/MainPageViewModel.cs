@@ -46,15 +46,20 @@ namespace PlayingWithWPSpeech {
             await _tts.SpeakTextAsync(Greeting);
         }
 
-        protected override void OnActivate() {
-            base.OnActivate();
+        protected override async void OnViewReady(object view) {
+            base.OnViewReady(view);
 
-            if (string.IsNullOrEmpty(VoiceCommandName)) return;
+            if (string.IsNullOrEmpty(VoiceCommandName) == false) {
+                switch (VoiceCommandName) {
+                    case "greeting":
+                        HandleGreetingLaunch();
+                        break;
+                }
+            }
 
-            switch (VoiceCommandName) {
-                case "greeting":
-                    HandleGreetingLaunch();
-                    break;
+            if (String.IsNullOrEmpty(Name)) {
+                Greeting = "It appears I don't know your name yet. Would you please enter it into the box?";
+                await _tts.SpeakTextAsync(Greeting);
             }
         }
 
@@ -83,12 +88,10 @@ namespace PlayingWithWPSpeech {
                 TimeOfDay = "morning";
             }
             else if (hour > 12 && hour < 17) {
-                Greeting = "Actually it looks like afternoon to me Sir.";
+                Greeting = "Actually it looks like afternoon to me " + Name;
                 TimeOfDay = "afternoon";
             }
-            else {
-                Greeting = "Good evening";
-            }
+            else Greeting = "Good evening " + Name;
 
             await _tts.SpeakTextAsync(Greeting);
         }
@@ -104,12 +107,10 @@ namespace PlayingWithWPSpeech {
                 TimeOfDay = "morning";
             }
             else if (hour >= 17) {
-                Greeting = "I'd say it is a great evening Sir.";
+                Greeting = "I'd say it is a great evening " + Name;
                 TimeOfDay = "evening";
             }
-            else {
-                Greeting = "Good afternoon";
-            }
+            else Greeting = "Good afternoon " + Name;
 
             await _tts.SpeakTextAsync(Greeting);
         }
@@ -118,16 +119,14 @@ namespace PlayingWithWPSpeech {
             var hour = DateTime.Now.Hour;
             if (hour < 6) Greeting = "It's quite early isn't it?";
             else if (hour > 12 && hour < 17) {
-                Greeting = "Actually it looks like afternoon to me Sir.";
+                Greeting = "Actually it looks like afternoon to me " + Name;
                 TimeOfDay = "afternoon";
             }
             else if (hour >= 17) {
-                Greeting = "I'd say it is a great evening Sir.";
+                Greeting = "I'd say it is a great evening " + Name;
                 TimeOfDay = "evening";
             }
-            else {
-                Greeting = "Good morning";
-            }
+            else Greeting = "Good morning " + Name;
 
             await _tts.SpeakTextAsync(Greeting);
         }

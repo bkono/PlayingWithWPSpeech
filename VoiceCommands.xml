@@ -8,7 +8,7 @@
     <Command Name="greeting">
       <Example>good morning</Example>
       <ListenFor>good {timeOfDay} [to you] [sir]</ListenFor>
-      <Feedback>Hello</Feedback>
+      <Feedback>...</Feedback>
       <Navigate Target="/Views/MainPage.xaml" />
     </Command>
 
