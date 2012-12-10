@@ -28,7 +28,9 @@ namespace PlayingWithWPSpeech {
         public string Greeting {
             get { return _greeting; }
             set {
-                if (value == _greeting) return;
+                if (value == _greeting) {
+                    return;
+                }
                 _greeting = value;
                 NotifyOfPropertyChange(() => Greeting);
             }
@@ -39,9 +41,12 @@ namespace PlayingWithWPSpeech {
         }
 
         public async void SayHello() {
-            if (String.IsNullOrEmpty(TimeOfDay))
+            if (String.IsNullOrEmpty(TimeOfDay)) {
                 Greeting = "Hello " + Name;
-            else Greeting = string.Format("Good {0} {1}", TimeOfDay, Name);
+            }
+            else {
+                Greeting = string.Format("Good {0} {1}", TimeOfDay, Name);
+            }
 
             await _tts.SpeakTextAsync(Greeting);
         }
@@ -80,18 +85,20 @@ namespace PlayingWithWPSpeech {
         private async void SetEveningResponse() {
             var hour = DateTime.Now.Hour;
             if (hour < 6) {
-                Greeting = "It's quite early isn't it?";
+                Greeting = string.Format("Good evening {0}. It's quite early isn't it?", Name);
                 TimeOfDay = "morning";
             }
             else if (hour >= 6 && hour < 12) {
-                Greeting = "Seems to be a beautiful morning.";
+                Greeting = string.Format("Seems to be a beautiful morning {0}.", Name);
                 TimeOfDay = "morning";
             }
             else if (hour > 12 && hour < 17) {
-                Greeting = "Actually it looks like afternoon to me " + Name;
+                Greeting = string.Format("Actually it looks like afternoon to me {0}", Name);
                 TimeOfDay = "afternoon";
             }
-            else Greeting = "Good evening " + Name;
+            else {
+                Greeting = string.Format("Good evening {0}", Name);
+            }
 
             await _tts.SpeakTextAsync(Greeting);
         }
@@ -99,34 +106,40 @@ namespace PlayingWithWPSpeech {
         private async void SetAfternoonResponse() {
             var hour = DateTime.Now.Hour;
             if (hour < 6) {
-                Greeting = "It's quite early isn't it?";
+                Greeting = string.Format("It's quite early isn't it {0}?", Name);
                 TimeOfDay = "morning";
             }
             else if (hour >= 6 && hour < 12) {
-                Greeting = "Seems to be a beautiful morning.";
+                Greeting = string.Format("Seems to be a beautiful morning {0}.", Name);
                 TimeOfDay = "morning";
             }
             else if (hour >= 17) {
-                Greeting = "I'd say it is a great evening " + Name;
+                Greeting = string.Format("I'd say it is a great evening {0}", Name);
                 TimeOfDay = "evening";
             }
-            else Greeting = "Good afternoon " + Name;
+            else {
+                Greeting = string.Format("Good afternoon {0}", Name);
+            }
 
             await _tts.SpeakTextAsync(Greeting);
         }
 
         private async void SetMorningResponse() {
             var hour = DateTime.Now.Hour;
-            if (hour < 6) Greeting = "It's quite early isn't it?";
+            if (hour < 6) {
+                Greeting = string.Format("It's quite early isn't it {0}?", Name);
+            }
             else if (hour > 12 && hour < 17) {
-                Greeting = "Actually it looks like afternoon to me " + Name;
+                Greeting = string.Format("Actually it looks like afternoon to me {0}", Name);
                 TimeOfDay = "afternoon";
             }
             else if (hour >= 17) {
-                Greeting = "I'd say it is a great evening " + Name;
+                Greeting = string.Format("I'd say it is a great evening {0}", Name);
                 TimeOfDay = "evening";
             }
-            else Greeting = "Good morning " + Name;
+            else {
+                Greeting = string.Format("Good morning {0}", Name);
+            }
 
             await _tts.SpeakTextAsync(Greeting);
         }
